@@ -1,5 +1,6 @@
 package com.angela.service;
 
+import com.angela.annotations.LogRecord;
 import com.angela.dto.TOPLogDTO;
 import com.angela.entity.TOPLog;
 import com.angela.mapper.TOPLogMapper;
@@ -15,6 +16,8 @@ public class TOPLogService {
     public List<TOPLog> getTOPLog() {
         return tOPLogMapper.selectList( null);
     }
+
+
     public String doLog(TOPLogDTO dto) {
         TOPLog entity=new TOPLog();
         entity.setUser(dto.getUser());

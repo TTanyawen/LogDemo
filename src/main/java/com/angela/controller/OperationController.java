@@ -1,6 +1,7 @@
 package com.angela.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.angela.annotations.LogRecord;
 import com.angela.dto.TOPLogDTO;
 import com.angela.entity.TOPLog;
 import com.angela.service.TOPLogService;
@@ -35,6 +36,7 @@ public class OperationController {
     }
 
     @RequestMapping("/select02")
+    @LogRecord(spEL = "T(com.angela.entity.TOPLog).createLog('select')")
     public String selectInfo02() {
 //        doLog_SPEL("angela", "select");
 
@@ -52,7 +54,7 @@ public class OperationController {
         // 准备上下文
         StandardEvaluationContext context = new StandardEvaluationContext();
         context.setVariable("user", "angela");
-        context.setVariable("operation", "select02");
+        context.setVariable("operation", "select");
 
         // 执行 SpEL 表达式
         TOPLog log = (TOPLog) expression.getValue(context);

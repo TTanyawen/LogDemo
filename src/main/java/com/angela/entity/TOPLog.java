@@ -20,9 +20,9 @@ public class TOPLog {
     }
 
     // 静态方法用于 SpEL
-    public static TOPLog createLog(String user, String operation) {
+    public static TOPLog createLog(String operation) {
         TOPLog log = new TOPLog();
-        log.setUser(user);
+        log.setUser("angela");//先写死，后期从上下文获取
         log.setOperation(operation);
         log.setTime(new Timestamp(new Date().getTime()));
         return log;
