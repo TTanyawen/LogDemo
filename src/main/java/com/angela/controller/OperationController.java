@@ -18,24 +18,24 @@ public class OperationController {
     private TOPLogService logService;
     @RequestMapping("/select")
     public String selectInfo() {
-        TOPLog log = new TOPLog();
-        log.setUser("angela");
-        log.setOperation("select");
-        log.setTime(new Timestamp(new Date().getTime()));
-
-        TOPLogDTO dto=new TOPLogDTO();
-        BeanUtil.copyProperties(log,dto);
-        logService.doLog(dto);
+//        TOPLog log = new TOPLog();
+//        log.setUser("angela");
+//        log.setOperation("select");
+//        log.setTime(new Timestamp(new Date().getTime()));
+//
+//        TOPLogDTO dto=new TOPLogDTO();
+//        BeanUtil.copyProperties(log,dto);
+//        logService.doLog(dto);
 
         return "selectInfo";
     }
-    @RequestMapping("/update")
-    public String updateInfo() {
-        return "updateInfo";
-    }
-    @RequestMapping("/delete")
-    public String deleteInfo() {
-        return "deleteInfo";
-    }
+//    @RequestMapping("/update")
+//    public String updateInfo() {
+//        return "updateInfo";
+//    }
+//    @RequestMapping("/delete")
+//    public String deleteInfo() {
+//        return "deleteInfo";
+//    }
 
 }
