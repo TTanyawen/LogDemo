@@ -5,6 +5,10 @@ import com.angela.dto.TOPLogDTO;
 import com.angela.entity.TOPLog;
 import com.angela.service.TOPLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +33,37 @@ public class OperationController {
 
         return "selectInfo";
     }
+
+    @RequestMapping("/select02")
+    public String selectInfo02() {
+//        doLog_SPEL("angela", "select");
+
+        return "selectInfo";
+    }
+
+    //基础的 SpEL 示例
+    public void doLog_SPEL(String user, String operation){
+        // 定义 SpEL 表达式，调用静态方法生成日志
+        String spELKey = "T(com.angela.entity.TOPLog).createLog(#user, #operation)";
+
+        ExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression(spELKey);
+
+        // 准备上下文
+        StandardEvaluationContext context = new StandardEvaluationContext();
+        context.setVariable("user", "angela");
+        context.setVariable("operation", "select02");
+
+        // 执行 SpEL 表达式
+        TOPLog log = (TOPLog) expression.getValue(context);
+
+        // 转 DTO 并调用日志服务
+        TOPLogDTO dto = new TOPLogDTO();
+        BeanUtil.copyProperties(log, dto);
+        logService.doLog(dto);
+    }
+
+
 //    @RequestMapping("/update")
 //    public String updateInfo() {
 //        return "updateInfo";
