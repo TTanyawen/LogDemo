@@ -17,7 +17,23 @@ public class TOPLogService {
         return tOPLogMapper.selectList( null);
     }
 
-
+    @com.mzt.logapi.starter.annotation.LogRecord(
+            success = """
+                操作人：{MY_PARSER{#dto.user}}， \
+                操作时间：{{#dto.time}}， \
+                操作类型：{{#dto.operation}};
+                """,
+            type = "selectLog",
+            bizNo = "{{#bizNo}}",
+            extra = "{{#dto.toString()}}"
+    )
+    public void doLog02(TOPLogDTO dto) {
+        TOPLog entity=new TOPLog();
+        entity.setUser(dto.getUser());
+        entity.setOperation(dto.getOperation());
+        entity.setTime(dto.getTime());
+        tOPLogMapper.insert(entity);
+    }
     public String doLog(TOPLogDTO dto) {
         TOPLog entity=new TOPLog();
         entity.setUser(dto.getUser());

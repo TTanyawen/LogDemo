@@ -21,6 +21,11 @@ import java.util.Date;
 public class OperationController {
     @Autowired
     private TOPLogService logService;
+
+
+    /**
+     * SpringAOP方式log
+     */
     @RequestMapping("/select")
     public String selectInfo() {
 //        TOPLog log = new TOPLog();
@@ -35,11 +40,29 @@ public class OperationController {
         return "selectInfo";
     }
 
+    /**
+     * SpEL+自定义注解+AOP 方式log
+     */
     @RequestMapping("/select02")
     @LogRecord(spEL = "T(com.angela.entity.TOPLog).createLog('select')")
     public String selectInfo02() {
 //        doLog_SPEL("angela", "select");
+        return "selectInfo";
+    }
 
+    /**
+     * 美团 mzt-biz-log 操作日志框架
+     */
+    @RequestMapping("/select03")
+    public String selectInfo03() {
+        TOPLog log = new TOPLog();
+        log.setUser("angela");
+        log.setOperation("select");
+        log.setTime(new Timestamp(new Date().getTime()));
+
+        TOPLogDTO dto=new TOPLogDTO();
+        BeanUtil.copyProperties(log,dto);
+        logService.doLog02(dto);
         return "selectInfo";
     }
 
